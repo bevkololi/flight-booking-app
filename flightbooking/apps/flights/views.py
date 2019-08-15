@@ -7,7 +7,6 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView, CreateAPIView, ListAPIView, ListCreateAPIView, UpdateAPIView,
 )
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
-
 from flightbooking.apps.flights.models import Flight, Booking
 from flightbooking.apps.flights.serializers import FlightSerializer, BookingSerializer
 from flightbooking.apps.authentication.models import User

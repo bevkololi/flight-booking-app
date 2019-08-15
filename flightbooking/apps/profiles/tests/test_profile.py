@@ -83,12 +83,12 @@ class TestProfile(APITestCase):
         res = self.client.get(self.get_profiles_url)
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
 
-    # def test_can_update_profile_bio(self):
-    #     self.client.post(self.register_url, self.login, format="json")
-    #     self.activate_user()
-    #     response = self.client.post(self.login_url, self.login, format="json")
-    #     token = response.data.get('token')
-    #     self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
-    #     res = self.client.put(self.get_profiles_url, data={'bio': 'This is some bio'})
-    #     self.assertEqual(res.status_code, status.HTTP_200_OK)
-    
+    def test_can_update_profile_bio(self):
+        self.client.post(self.register_url, self.login, format="json")
+        self.activate_user()
+        response = self.client.post(self.login_url, self.login, format="json")
+        token = response.data.get('token')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+        res = self.client.put(self.get_profiles_url, data={'bio': 'This is some bio'})
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+

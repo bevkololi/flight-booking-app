@@ -22,7 +22,7 @@ before_script:
   - export TIME_DELTA=100
 
 script:
-  - coverage run --source='.' ./manage.py test 
+  - python manage.py test flightbooking/apps
   - coverage report
 
 after_script:

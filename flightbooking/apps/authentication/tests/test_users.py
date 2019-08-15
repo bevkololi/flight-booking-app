@@ -51,7 +51,7 @@ class UserRetrieveUpdateAPIViewTest(AuthenticatedTestCase):
         """
         self.logout()
         response = self.client.get(reverse("authentication:user-retrieve-update"), data={}, format="json")
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_cannot_update_unauthenticated_user_details(self):
         """

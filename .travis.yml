@@ -22,7 +22,8 @@ before_script:
   - export TIME_DELTA=100
 
 script:
-  - coverage run --source=./apps ./manage.py test 
+  - pyython manage.py test
+  - coverage run --source='.' ./manage.py test 
   - coverage report
 
 after_script:

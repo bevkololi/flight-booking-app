@@ -23,8 +23,8 @@ before_script:
 
 script:
   # - python manage.py test flightbooking/apps
-  - coverage run --source='flightbooking/apps/authentication' --omit=flightbooking/apps/authentication/migration,flightbooking/apps/authentication/tests ./manage.py test 
-  - coverage report
+  - coverage run --source='flightbooking/apps/authentication' ./manage.py test 
+  - coverage report --omit=*/migrations/*,*/tests/*
 
 after_script:
   - coveralls

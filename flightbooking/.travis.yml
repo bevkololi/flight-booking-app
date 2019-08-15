@@ -1,0 +1,30 @@
+language: python
+
+python:
+  - "3.6"
+
+service:
+  - postgresql
+
+addons:
+  postgresql: '9.6'
+
+install:
+  - pip3 install -r requirements.txt
+  - pip3 install coverage
+  - pip3 install coveralls
+
+before_script:
+  - python manage.py collectstatic
+  - export DB_NAME="ah_code_blooded"
+  - psql -c 'create database ah_code_blooded;' -U postgres
+  - python manage.py makemigrations
+  - python manage.py migrate
+  - export TIME_DELTA=100
+
+script:
+  - coverage run --source='.' ./manage.py test 
+  - coverage report
+
+after_script:
+  - coveralls

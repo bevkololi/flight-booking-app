@@ -234,7 +234,7 @@ class LoginViewTestCase(AuthenticationTestCase):
         Test user can login successfully
         """
         self.register()
-        self.activate_user()
+        self.activate_user_make_staff()
         res = self.login()
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertIsNotNone(json.loads(res.content)['user']['token'])

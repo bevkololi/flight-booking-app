@@ -75,7 +75,7 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         serializer = self.serializer_class(
             request.user, data=user, partial=True
         )
-        serializer.is_valid(raise_exceptions=True)
+        serializer.is_valid(raise_exception=True)
         serializer.save()
 
         return Response(serializer.data, status=status.HTTP_200_OK)

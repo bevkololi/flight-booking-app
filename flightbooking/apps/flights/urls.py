@@ -10,5 +10,5 @@ router.register('flights', FlightAPIView, base_name="flights")
 urlpatterns = [
     path('', include(router.urls)),
     path('flights/<flight_id>/bookings/', BookingAPIView.as_view(), name='bookings'),
-    path('flights/<fligh_id>/bookings/<pk>', BookingUpdateDestroy.as_view(), name='booking'),
+    path('flights/<flight_id>/bookings/<pk>', BookingUpdateDestroy.as_view(), name='booking'),
 ]

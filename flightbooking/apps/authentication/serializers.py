@@ -95,10 +95,10 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError(
                 'A user with this email and password was not found.'
             )
-        if not user.is_active:
-            raise serializers.ValidationError(
-                'This user has been deactivated.'
-            )
+        # if not user.is_active:
+        #     raise serializers.ValidationError(
+        #         'This user has been deactivated.'
+        #     )
         return {
             'email': user.email,
             'username': user.username,

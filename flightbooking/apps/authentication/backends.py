@@ -53,7 +53,7 @@ class JWTAuthentication(authentication.BaseAuthentication): # NOQA
             user = User.objects.get(pk=payload['id'])
         except User.DoesNotExist:
             raise exceptions.AuthenticationFailed('No user Found')
-        if not user.is_active:
-            raise exceptions.AuthenticationFailed('User has been deactivated')
+        # if not user.is_active:
+        #     raise exceptions.AuthenticationFailed('User has been deactivated')
 
         return user, token

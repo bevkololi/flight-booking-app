@@ -9,7 +9,7 @@ class Flight(models.Model):
     flight_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     destination = models.CharField(max_length=255)
-    departure_date = models.DateField(default=datetime.date.today())
+    departure_date = models.DateField()
     departure_time = models.TimeField()
 
     class Meta:

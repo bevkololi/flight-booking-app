@@ -16,7 +16,7 @@ install:
 
 before_script:
   - export DB_NAME="flightbooking"
-  - psql -c 'create database flight_booking;' -U postgres
+  - psql -c 'create database flightbooking;' -U postgres
   - python manage.py makemigrations
   - python manage.py migrate
   - export TIME_DELTA=100

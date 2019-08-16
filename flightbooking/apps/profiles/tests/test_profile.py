@@ -14,7 +14,9 @@ class TestProfile(APITestCase):
         self.register_url = reverse('authentication:user-register')
         self.get_all_url = reverse('profiles:get-profiles')
         username = 'chomba'
+        non_existent = 'beverly'
         self.get_profiles_url = reverse('profiles:profiles', kwargs={'username': username})
+        self.get_non_existent_profile_url = reverse('profiles:profiles', kwargs={'username': non_existent})
         self.login_url = reverse('authentication:user-login')
 
         self.user = {
@@ -77,6 +79,15 @@ class TestProfile(APITestCase):
         token = response.data.get('token')
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
         res = self.client.get(self.get_profiles_url)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+    def test_get_single_nonexistent_profile(self):
+        self.client.post(self.register_url, self.login, format="json")
+        self.activate_user()
+        response = self.client.post(self.login_url, self.login, format="json")
+        token = response.data.get('token')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+        res = self.client.get(self.get_non_existent_profile_url)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
     def test_get_single_profile_unauthenticated(self):

@@ -101,6 +101,27 @@ class GetFlightsTestCase(BaseFlightsTestCase):
         response = self.get_single_flight(flight_id)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_user_can_query_flights_using_page_numbers(self):
+        self.create_flight()
+        res = self.client.get(self.url_list + '?page=1', data=None, format="json")
+        self.assertEqual(1, len(res.data['results']))
+        self.assertIsNone(res.data['links']['next'])
+        self.assertIsNone(res.data['links']['previous'])
+
+    def test_user_can_query_flights_using_page_size(self):
+        self.create_flight()
+        res = self.client.get(self.url_list + '?page_size=1', data=None, format="json")
+        self.assertEqual(1, len(res.data['results']))
+        self.assertIsNone(res.data['links']['previous'])
+        self.assertIsNone(res.data['links']['next'])
+
+    def test_user_can_query_flights_using_page_size_and_page_number(self):
+        self.create_flight()
+        res = self.client.get(self.url_list + '?page_size=1', data=None, format="json")
+        self.assertEqual(1, len(res.data['results']))
+        self.assertIsNone(res.data['links']['previous'])
+        self.assertIsNone(res.data['links']['next'])
+
 
 class UpdateFlightTestCase(BaseFlightsTestCase):
 

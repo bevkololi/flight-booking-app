@@ -137,3 +137,7 @@ class UserSerializer(serializers.ModelSerializer):
 class LogoutSerializer(serializers.ModelSerializer):
     """Performs logout serializer"""
     token = serializers.CharField(max_length=500)
+
+    class Meta:
+        model = BlacklistedToken
+        fields = "__all__"

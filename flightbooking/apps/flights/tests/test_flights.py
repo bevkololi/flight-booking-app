@@ -99,7 +99,7 @@ class GetFlightsTestCase(BaseFlightsTestCase):
         flight_id = self.create_flight()['flight_id']
         self.logout()
         response = self.get_single_flight(flight_id)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_user_can_query_flights_using_page_numbers(self):
         self.create_flight()

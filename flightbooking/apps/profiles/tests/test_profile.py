@@ -88,7 +88,7 @@ class TestProfile(APITestCase):
         token = response.data.get('token')
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
         res = self.client.get(self.get_non_existent_profile_url)
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_get_single_profile_unauthenticated(self):
         res = self.client.get(self.get_profiles_url)

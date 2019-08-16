@@ -41,7 +41,7 @@ class ProfileGetView(APIView):
         try:
             profile = Profile.objects.get(user__username=username)
         except Profile.DoesNotExist:
-            raise ProfileDoesNotExist
+            raise Http404
         serializer = self.serializer_classes(profile)
         return Response({'profile': serializer.data}, status=status.HTTP_200_OK)
 

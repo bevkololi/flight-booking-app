@@ -95,7 +95,7 @@ class GetBookingsTestCase(BaseBookingsTestCase):
         response = self.get_single_booking(flight_id, booking_id)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_unauthenticated_user_can_get_created_booking(self):
+    def test_unauthenticated_user_cannot_get_created_booking(self):
         flight_id = self.create_flight()['flight_id']
         booking = self.create_booking(flight_id)
         booking_id = json.loads(booking.content)['booking_id']

@@ -65,8 +65,7 @@ class AuthenticatedTestCase(AuthenticationTestCase):
         Unset the HTTP Authorization header whenever you need to use an unauthenticated user
         :return:
         """
-        # self.client.credentials(HTTP_AUTHORIZATION="")
-        return self.client.delete(reverse("authentication:logout"), data=None, format="json")
+        self.client.credentials(HTTP_AUTHORIZATION="")
 
     def login(self, user=None):
         """
@@ -252,11 +251,4 @@ class LoginViewTestCase(AuthenticationTestCase):
         res = self.login()
         self.assertIn(b'Invalid token header. Token string should not contain spaces', res.content)
 
-
-
-class LogoutViewTestCase(AuthenticatedTestCase):
-    def test_user_can_logout(self):
-        self.register_and_login()
-        res = self.logout()
-        self.assertIn(b'{"success":"Succesfully logged out"}', res.content)
 

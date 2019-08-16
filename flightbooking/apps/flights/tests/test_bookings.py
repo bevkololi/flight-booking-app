@@ -64,6 +64,12 @@ class CreateBookingsTestCase(BaseBookingsTestCase):
         response = self.create_booking(flight_id)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+    def test_user_cannot_create_booking_for_nonexistent_flight(self):
+        flight_id = 10
+        response = self.create_booking(flight_id)
+        self.assertIn(
+            b'{"errors":"This flight does not exist!"}', response.content)
+
     def test_cannot_create_booking_without_flight_seat(self):
         self.booking['booking']['flight_seat'] = ''
         flight_id = self.create_flight()['flight_id']
@@ -94,6 +100,12 @@ class GetBookingsTestCase(BaseBookingsTestCase):
         booking_id = json.loads(booking.content)['booking_id']
         response = self.get_single_booking(flight_id, booking_id)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_cannot_get_nonexisting_booking(self):
+        flight_id = self.create_flight()['flight_id']
+        booking_id = 99
+        response = self.get_single_booking(flight_id, booking_id)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_unauthenticated_user_can_get_created_booking(self):
         flight_id = self.create_flight()['flight_id']

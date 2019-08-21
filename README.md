@@ -12,7 +12,6 @@ A Django application to enable users to book available flights.
 - Create `.env` containing database name and password.
 - Run migrations using the command `python manage.py makemigrations authentication profile flights` followed by `python manage.py makemigrations`.
 
-
 ### Authentication
 Run the following to register and signup
 ```

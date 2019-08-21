@@ -1,0 +1,21 @@
+[report]
+omit =
+  env/*
+  .env/*
+  bin/*
+  */http/*
+  .circleci/*
+  manage.py
+  */encodings/idna.py
+  */stringprep.py
+  */typing.py
+  */xml/dom/pulldom.py
+  */xml/sax/expatreader.py
+  */venv/*
+  */migrations/*
+  */tests/*
+  venv/*
+  jwt_settings.py
+  wsgi.py
+  locustMock.py
+  locustfile.py

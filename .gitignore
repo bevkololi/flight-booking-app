@@ -97,3 +97,8 @@ db.sqlite3
 
 staticfiles
 .DS_Store
+
+
+# celery files
+celerybeat-schedule.db
+celerybeat

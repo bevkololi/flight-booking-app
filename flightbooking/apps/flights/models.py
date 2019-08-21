@@ -1,8 +1,10 @@
 from datetime import date
 import datetime
+from django.utils.timezone import now
 
 from django.db import models
 from flightbooking.apps.authentication.models import User
+from flightbooking.apps.core.models import TimestampsMixin
 
 
 class Flight(models.Model):
@@ -16,7 +18,7 @@ class Flight(models.Model):
         ordering = ['flight_id']
 
 
-class Booking(models.Model):
+class Booking(TimestampsMixin):
     booking_id = models.AutoField(primary_key=True)
     flight = models.ForeignKey(
         Flight, on_delete=models.CASCADE, related_name="bookings"

@@ -71,10 +71,12 @@ class BookingSerializer(serializers.ModelSerializer):
             'blank': 'The booking must have a flight seat',
             'required': "The booking must have a flight seat",
         })
+    created_at = serializers.DateTimeField(read_only=True)
+    updated_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Booking
-        fields = ['booking_id', 'traveller', 'flight_seat']
+        fields = ['booking_id', 'traveller', 'flight_seat', 'created_at', 'updated_at']
 
     def get_traveller(self, obj):
         serializer = ProfileSerializer(

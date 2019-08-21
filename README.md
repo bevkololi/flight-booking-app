@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/bevkololi/flight-booking-app.svg?branch=notifiations)](https://travis-ci.org/bevkololi/flight-booking-app)
-[![Coverage Status](https://coveralls.io/repos/github/bevkololi/flight-booking-app/badge.svg?branch=notifications)](https://coveralls.io/github/bevkololi/flight-booking-app?branch=notifications)
+[![Build Status](https://travis-ci.org/bevkololi/flight-booking-app.svg?branch=master)](https://travis-ci.org/bevkololi/flight-booking-app)
+[![Coverage Status](https://coveralls.io/repos/github/bevkololi/flight-booking-app/badge.svg?branch=master)](https://coveralls.io/github/bevkololi/flight-booking-app?branch=master)
 
 # flight-booking-app
 A Django application to enable users to book available flights.
@@ -11,7 +11,6 @@ A Django application to enable users to book available flights.
 - Install requirements by running `pip install -r requirements.txt`.
 - Create `.env` containing database name and password.
 - Run migrations using the command `python manage.py makemigrations authentication profile flights` followed by `python manage.py makemigrations`.
-
 
 ### Authentication
 Run the following to register and signup

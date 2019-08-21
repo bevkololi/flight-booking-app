@@ -24,7 +24,7 @@ before_script:
 script:
   # - python manage.py test flightbooking/apps
   - coverage run --source=. manage.py test flightbooking/apps
-  - coverage report --omit=*/migrations/*,*/tests/*,*wsgi.py*
+  - coverage report --omit=*/migrations/*,*/tests/*,*wsgi.py*,*celery.py*
 
 after_script:
   - coveralls

@@ -102,4 +102,3 @@ staticfiles
 # celery files
 celerybeat-schedule.db
 celerybeat
-dump.rdb

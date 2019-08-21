@@ -7,6 +7,19 @@ from rest_framework import serializers
 from .models import User, BlacklistedToken
 from flightbooking.apps.profiles.models import Profile
 
+email_expression = re.compile(
+    r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
+trial_email = re.compile(
+    r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[0-9-.]+$)")
+trial_email_2 = re.compile(
+    r"(^[a-zA-Z0-9_.+-]+@[0-9-]+\.[a-zA-Z0-9-.]+$)")
+at_least_number = re.compile(
+    r"^(?=.*[0-9]).*")
+at_least_uppercase = re.compile(
+    r"^(?=.*[A-Z])(?=.*[a-z])(?!.*\s).*")
+at_least_special_char = re.compile(
+    r".*[!@#$%^&*()_\-+={};:\'\"|`~,<.>?/].*")
+
 
 class RegistrationSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True)
@@ -46,11 +59,15 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def validate_email(self, data):
         candidate_email = data
         if candidate_email == "":
-            raise serializers.ValidationError(
-                {"email": ["Email is required!"]})
+            raise serializers.ValidationError({"email": ["Email is required!"]})
+        elif re.match(trial_email, candidate_email):
+            raise serializers.ValidationError({"email": ["Invalid email! Hint: example@mail.com"]})
+        elif re.match(trial_email_2, candidate_email):
+            raise serializers.ValidationError({"email": ["Invalid email! Hint: example@mail.com"]})
         elif User.objects.filter(email=candidate_email):
-            raise serializers.ValidationError(
-                {"email": ["User with provided email exists! Please login!"]})
+            raise serializers.ValidationError({"email": ["User with provided email exists! Please login!"]})
+        elif not re.match(email_expression, candidate_email):
+            raise serializers.ValidationError({"email": ["Invalid email! Hint: example@mail.com!"]})
         return data
         
     def validate_password(self, data):
@@ -64,6 +81,15 @@ class RegistrationSerializer(serializers.ModelSerializer):
         elif len(candidate_password) > 128:
             raise serializers.ValidationError({
                 "password": ["Password should not be longer than (128) characters long!"]})
+        elif not re.match(at_least_number, candidate_password):
+            raise serializers.ValidationError({
+                "password": ["Password must have at least one number!"]})
+        elif not re.match(at_least_uppercase, candidate_password):
+            raise serializers.ValidationError({
+                "password": ["Password must have at least one uppercase letter!"]})
+        elif not re.match(at_least_special_char, candidate_password):
+            raise serializers.ValidationError({
+                "password": ["Password must include a special character!"]})
         return data
 
     def create(self, validated_data):

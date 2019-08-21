@@ -192,7 +192,7 @@ class RegistrationViewTestCase(AuthenticationTestCase):
         self.user["user"]["email"] = "beverly@gmail"
         res = self.register()
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn(b'{"user": {"email": ["Enter a valid email address."]}}', res.content)
+        self.assertIn(b'{"user": {"email": ["Invalid email! Hint: example@mail.com!"]}}', res.content)
 
     def test_signup_without_password(self):
         """
@@ -213,6 +213,50 @@ class RegistrationViewTestCase(AuthenticationTestCase):
         self.assertIn(
             b'{"user": {"password": ["Password should be at least eight (8) characters long!"]}}',
             res.content)
+
+    def test_signup_with_password_longer_than_128_chars(self):
+        """
+        Test if a user can register with a password with longer than 128 chars
+        """
+        self.user["user"]["password"] = """beverlyisaveryawesometeamplayer
+                                           soyoushouldknowhermyfriend because
+                                           itiscriticalfor you existence critical
+                                           for you existence critical for you existencecritical
+                                           for you existence1&&AbC"""
+        res = self.register()
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn(
+            b'{"user": {"password": ["Password should not be longer than (128) characters long!"]}}',
+            res.content)
+
+    def test_signup_with_password_without_number(self):
+        """
+        Test if a user can register with a password without a number
+        """
+        self.user["user"]["password"] = "without_num"
+        res = self.register()
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn(b'Password must have at least one number!', res.content)
+
+    def test_signup_with_password_without_uppercase(self):
+        """
+        Test if a user can register with a password without an uppercase characater
+        """
+        self.user["user"]["password"] = "withouupper2"
+        res = self.register()
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn(b'Password must have at least one uppercase letter!', res.content)
+
+    def test_signup_with_password_without_special_character(self):
+        """
+        Test if a user can register with a password without an uppercase characater
+        """
+        self.user["user"]["password"] = "w1thoutSpecial"
+        res = self.register()
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn(b'Password must include a special character!', res.content)
+
+    
 
 
 

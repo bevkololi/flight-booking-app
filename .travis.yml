@@ -15,7 +15,6 @@ install:
   - pip3 install coveralls
 
 before_script:
-  - python manage.py collectstatic
   - export DB_NAME="flightbooking"
   - psql -c 'create database flightbooking;' -U postgres
   - python manage.py makemigrations

@@ -24,7 +24,7 @@ django-geoposition==0.3.0
 django-inlinecss==0.1.2
 django-openid-auth==0.15
 django-rest-swagger==2.2.0
-djangorestframework==3.8.2
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 Faker==0.9.1
 flake8==3.5.0

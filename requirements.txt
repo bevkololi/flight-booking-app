@@ -71,7 +71,7 @@ soupsieve==1.8
 sqlparse==0.3.0
 text-unidecode==1.2
 uritemplate==3.0.0
-urllib3==1.24.1
+urllib3==1.26.5
 wcwidth==0.1.7
 Werkzeug==0.15.5
 whitenoise==4.1
